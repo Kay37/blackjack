@@ -63,6 +63,10 @@ public class Card {
         return isFaceUp;
     }
 
+    public boolean isAce() {
+        return (value.equals("A"));
+    }
+
     public void flip() {
         isFaceUp = !isFaceUp;
     }

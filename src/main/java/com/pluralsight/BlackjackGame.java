@@ -6,6 +6,8 @@ public class BlackjackGame {
 
     private static final int STARTING_CARDS = 2;
 
+    public static final int BLACKJACK = 21;
+
     private Deck deck;
 
     private ArrayList<Player> players;
@@ -23,8 +25,8 @@ public class BlackjackGame {
                 InputToolbox.promptInt("How many players for Blackjack today? (1-5): ", 1, 5);
         //? a for loop that loops as many times as the # of players
         for (int i = 0; i < numberOfPlayers; i++) {
-            // ? Asking the user for each player's name, and storing it within a playerName variable that gets reused
-            // ? on the next passover of the loop.
+            //? Asking the user for each player's name, and storing it within a playerName variable that gets reused
+            //? on the next passover of the loop.
             String playerName = InputToolbox.promptString("Please enter player " + (i + 1) + "'s name: ");
             //? adding that player to the ArrayList for the players.
             players.add(new Player(playerName));
@@ -36,11 +38,37 @@ public class BlackjackGame {
         deck.shuffle();
         //? Every player in blackjack gets 2 cards at the start of the game. So we loop 2 times
         for (int i = 0; i < STARTING_CARDS; i++) {
-            // ? for every player, get handed / dealt a card (2 b/c loop runs 2x)
+            //? for every player, get handed / dealt a card (2 b/c loop runs 2x)
             for (Player player : players) {
                 player.takeCard(deck.deal());
             }
 
+        }
+    }
+
+    private void takeTurn(Player player) {
+        showHand(player);
+        boolean keepGoing = true;
+        while (keepGoing && player.getScore() < 21) {
+            String hitOrStand = InputToolbox.promptChoice(player.getName() + ", Hit or Stand?", "Hit", "Stand");
+            switch (hitOrStand) {
+                case "hit":
+                    System.out.println("Hit!");
+                    player.takeCard(deck.deal());
+                    showHand(player);
+                    break;
+                case "stand":
+                    System.out.println("Stand.");
+                    keepGoing = false;
+                    break;
+            }
+        }
+    }
+
+    private void playTurns() {
+        for (Player player : players) {
+            takeTurn(player);
+            System.out.println("─────────────── ♠ ♥ ♦ ♣ ───────────────");
         }
     }
 
@@ -110,6 +138,7 @@ public class BlackjackGame {
     public void playBlackjack() {
         choosePlayers();
         dealStartingHand();
+        playTurns();
         showAllHands();
         announceWinners();
     }

@@ -18,7 +18,7 @@ public class CardArt {
     public static String[] drawCard(Card card) {
         String[] cardLines = new String[CARD_HEIGHT];
         cardLines[0] = "┌───────────┐";
-        cardLines[6] = "└───────────┘";
+        cardLines[CARD_HEIGHT - 1] = "└───────────┘";
         if (card.isFaceUp()) {
             cardLines[1] = String.format("│" + "%-2s" + "         │", card.getValue());
             cardLines[2] = "│           │";

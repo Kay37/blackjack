@@ -89,4 +89,29 @@ public class BlackjackGame {
         return winners;
     }
 
+    private void announceWinners() {
+        ArrayList<Player> winners = findWinners(players);
+        switch (winners.size()) {
+            case 0:
+                System.out.println("No winner :( Everyone busted.");
+                break;
+            case 1:
+                System.out.println(winners.get(0).getName() + " wins!");
+                break;
+            default:
+                System.out.println("There was a tie!");
+                for (Player player : winners) {
+                    System.out.println(player.getName() + ": " + player.getScore());
+                }
+                break;
+        }
+    }
+
+    public void playBlackjack() {
+        choosePlayers();
+        dealStartingHand();
+        showAllHands();
+        announceWinners();
+    }
+
 }

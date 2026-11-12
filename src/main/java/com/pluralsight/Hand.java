@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class Hand {
 
+    //! holds the cards one player has & adds their value up. It *has* cards
+
     private ArrayList<Card> cards;
 
     public Hand() {

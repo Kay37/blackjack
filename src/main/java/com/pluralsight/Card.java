@@ -2,6 +2,9 @@ package com.pluralsight;
 
 public class Card {
 
+    //! defines one playing card. knows about its suit, its value, whether it's face up, and how many points it's
+    //! worth. knows not about hands, decks, or players.
+
     private String suit;
     private String value;
     private boolean isFaceUp;

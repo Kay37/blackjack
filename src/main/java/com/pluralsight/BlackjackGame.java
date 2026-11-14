@@ -49,7 +49,7 @@ public class BlackjackGame {
     private void takeTurn(Player player) {
         showHand(player);
         boolean keepGoing = true;
-        while (keepGoing && player.getScore() < 21) {
+        while (keepGoing && player.getScore() < BLACKJACK) {
             String hitOrStand = InputToolbox.promptChoice(player.getName() + ", Hit or Stand?", "Hit", "Stand");
             switch (hitOrStand) {
                 case "hit":
@@ -135,12 +135,23 @@ public class BlackjackGame {
         }
     }
 
-    public void playBlackjack() {
-        choosePlayers();
+    private void playRound() {
+        deck = new Deck();
+        for (Player player : players) {
+            player.newHand();
+        }
         dealStartingHand();
         playTurns();
         showAllHands();
         announceWinners();
+    }
+
+    public void playBlackjack() {
+        choosePlayers();
+        do {
+            playRound();
+        } while (InputToolbox.promptYesNo("Play again?"));
+        System.out.println("Thanks for playing!");
     }
 
 }

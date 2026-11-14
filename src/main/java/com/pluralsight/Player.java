@@ -30,4 +30,8 @@ public class Player {
         return hand.isBust();
     }
 
+    public void newHand() {
+        hand = new Hand();
+    }
+
 }
